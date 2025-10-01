@@ -9,7 +9,7 @@ const PORT = process.env.PORT;
 const cors = require("cors");
 
 app.use(cors({
-  origin: [/^https?:\/\/.*\.vercel\.app$/, "http://localhost:5173"],
+  origin: ["https://platter-052d.onrender.com/"],
   methods: ["GET","POST","PATCH","DELETE","OPTIONS"],
   allowedHeaders: ["Content-Type"]
 }));
