@@ -25,7 +25,6 @@ app.use(
     optionsSuccessStatus: 204,
   })
 );
-app.options("*", cors());
 
 // Static + JSON
 app.use("/images", express.static(path.join(__dirname, "public", "images")));
