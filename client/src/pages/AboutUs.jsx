@@ -1,6 +1,6 @@
 function AboutUs() {
   return (
-    <>
+    <div className="flex justify-center items-center">
       <main className="p-18 flex gap-12">
         <section className="flex flex-col">
           <header className="pb-8 text-6xl font-semibold">Our Story</header>
@@ -43,17 +43,21 @@ function AboutUs() {
         <div className="mt-20 relative w-[400px] h-fit">
           <img
             className="w-fit"
-            src={`${import.meta.env.VITE_API_URL}/images/pages/about/Hostess.png`}
+            src={`${
+              import.meta.env.VITE_API_URL
+            }/images/pages/about/Hostess.png`}
             alt="Hostess"
           />
           <img
             className="absolute -top-20 -right-24 w-[180px] h-[280px]"
-            src={`${import.meta.env.VITE_API_URL}/images/pages/about/Shawarma with hand.png`}
+            src={`${
+              import.meta.env.VITE_API_URL
+            }/images/pages/about/Shawarma with hand.png`}
             alt="Shawarma with hand"
           />
         </div>
       </main>
-    </>
+    </div>
   );
 }
 
