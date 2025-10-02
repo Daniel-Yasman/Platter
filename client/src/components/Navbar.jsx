@@ -5,7 +5,7 @@ import { LuShoppingCart } from "react-icons/lu";
 function Navbar({ cartCount = 0, userName = "" }) {
   const userId = localStorage.getItem("userId");
   const isLoggedIn = Boolean(userId);
-
+  const [toast, setToast] = useState({ msg: "", color: "" });
   return (
     <div className="grid grid-cols-3 items-center w-full px-10 pb-10 text-indigo-900 border-b">
       {/* Left */}
@@ -57,7 +57,15 @@ function Navbar({ cartCount = 0, userName = "" }) {
               </span>
             </Link>
           ) : (
-            <button onClick={() => alert("Log in first.")}>
+            <button
+              onClick={() => {
+                setToast({
+                  msg: "Log in first.",
+                  color: "bg-yellow-600",
+                });
+                setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+              }}
+            >
               <LuShoppingCart className="w-12 h-12" />
             </button>
           )}
