@@ -143,13 +143,14 @@ export default function MealsList({ randomize = false, size }) {
                     onClick={() => {
                       if (!userId) {
                         setToast({
-                          msg: "Log in first.",
-                          color: "bg-yellow-600",
+                          msg: "Log in first",
+                          color: "bg-yellow-500",
                         });
                         setTimeout(
                           () => setToast({ msg: "", color: "" }),
                           2800
                         );
+                        return;
                       } else {
                         handleAddToCart(selected._id);
                       }
