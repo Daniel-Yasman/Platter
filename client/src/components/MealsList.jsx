@@ -1,59 +1,51 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import MealsListModal from "./MealsListModal";
 
 export default function MealsList({ randomize = false, size }) {
   const { fetchCartCount } = useOutletContext();
   const [meals, setMeals] = useState([]);
-  const [toast, setToast] = useState({ msg: "", color: "bg-green-600" });
+  const [toast, setToast] = useState({ msg: "", color: "" });
   const [selected, setSelected] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const toastTimer = useRef();
-  const abortRef = useRef();
-
-  const setToastNow = (msg, color = "bg-green-600") => {
-    setToast({ msg, color });
-    clearTimeout(toastTimer.current);
-    toastTimer.current = setTimeout(() => setToast({ msg: "", color }), 2800);
-  };
 
   useEffect(() => {
-    abortRef.current?.abort();
-    const ctrl = new AbortController();
-    abortRef.current = ctrl;
-
-    (async () => {
+    async function fetchMeals() {
       try {
-        const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/food`,
-          {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-            signal: ctrl.signal,
-          }
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/food`
         );
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
+        if (!response.ok) {
+          setToast({ msg: "Failed to load meals", color: "bg-red-600" });
+          setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+          return;
+        }
+
+        const data = await response.json();
         let rows = Array.isArray(data?.foods) ? data.foods : [];
+
         if (randomize) rows = shuffle(rows);
         if (size) rows = rows.slice(0, size);
+
         setMeals(rows);
       } catch (e) {
-        if (e.name !== "AbortError") {
-          console.error(e);
-          setToastNow("Failed to load meals", "bg-red-600");
-        }
+        console.error(e);
+        setToast({ msg: "Failed to load meals", color: "bg-red-600" });
+        setTimeout(() => setToast({ msg: "", color: "" }), 2800);
       }
-    })();
+    }
 
-    return () => ctrl.abort();
+    fetchMeals();
   }, [randomize, size]);
 
   const handleAddToCart = async (mealId) => {
     try {
       const userId = localStorage.getItem("userId");
-      if (!userId) return setToastNow("Log in first", "bg-yellow-500");
-
+      if (!userId)
+        return () => {
+          setToast({ msg: "Log in first", color: "bg-yellow-500" });
+          setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+        };
       const res = await fetch(
         `${import.meta.env.VITE_API_URL}/api/user/${userId}`,
         {
@@ -64,11 +56,13 @@ export default function MealsList({ randomize = false, size }) {
       );
 
       if (!res.ok) throw new Error("Add to cart failed");
-      setToastNow("Added to cart", "bg-green-600");
+      setToast({ msg: "Added to cart", color: "bg-green-600" });
+      setTimeout(() => setToast({ msg: "", color: "" }), 2800);
       await fetchCartCount();
     } catch (e) {
       console.error(e);
-      setToastNow("Failed to add to cart", "bg-red-600");
+      setToast({ msg: "Failed to add to cart", color: "bg-red-600" });
+      setTimeout(() => setToast({ msg: "", color: "" }), 2800);
     }
   };
 
