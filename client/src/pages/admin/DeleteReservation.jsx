@@ -5,12 +5,19 @@ function DeleteReservation() {
   const [userId, setUserId] = useState("");
   const [reservations, setReservations] = useState([]);
   const [message, setMessage] = useState("");
+  const [toast, setToast] = useState({ msg: "", color: "" });
 
   async function handleClick() {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/reservation/${userId}`);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/reservation/${userId}`
+      );
       if (!response.ok) {
-        console.error(`Error ${response.status}: ${response.statusText}`);
+        setToast({
+          msg: `Error ${response.status}: ${response.statusText}`,
+          color: "bg-red-600",
+        });
+        setTimeout(() => setToast({ msg: "", color: "" }), 2800);
       } else {
         const parsed = await response.json();
         setReservations(parsed.reservations);
@@ -27,11 +34,20 @@ function DeleteReservation() {
 
   async function handleDelete(id) {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/reservations/${adminId}/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/admin/reservations/${adminId}/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       if (!response.ok) {
-        console.error(`Error ${response.status}: ${response.statusText}`);
+        setToast({
+          msg: `Error ${response.status}: ${response.statusText}`,
+          color: "bg-red-600",
+        });
+        setTimeout(() => setToast({ msg: "", color: "" }), 2800);
       } else {
         // optional: remove deleted reservation from UI
         setReservations((prev) => prev.filter((r) => r._id !== id));
@@ -85,7 +101,9 @@ function DeleteReservation() {
                         </div>
                       </div>
                       <img
-                        src={`${import.meta.env.VITE_API_URL}${item.foodId.image}`}
+                        src={`${import.meta.env.VITE_API_URL}${
+                          item.foodId.image
+                        }`}
                         alt={item.foodId.name}
                         className="h-12 w-12 rounded object-cover"
                       />
@@ -109,6 +127,14 @@ function DeleteReservation() {
           </div>
         )}
       </div>
+      {/* Toast */}
+      {toast.msg ? (
+        <div
+          className={`fixed right-5 top-5 z-50 rounded px-6 py-3 text-white shadow-lg ${toast.color}`}
+        >
+          {toast.msg}
+        </div>
+      ) : null}
     </div>
   );
 }
