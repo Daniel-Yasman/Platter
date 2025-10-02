@@ -7,20 +7,28 @@ function CreateMeal() {
   const [image, setImage] = useState("");
   const [stock, setStock] = useState("");
   const [description, setDescription] = useState("");
+  const [toast, setToast] = useState({ msg: "", color: "" });
 
   async function handleClick(e) {
     e.preventDefault();
     const data = { name, price, image, stock, description };
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/${adminId}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/admin/${adminId}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (!response.ok) {
-        console.error(`Error ${response.status}: ${response.statusText}`);
+        setToast({
+          msg: `Error ${response.status}: ${response.statusText}`,
+          color: "bg-red-600",
+        });
+        setTimeout(() => setToast({ msg: "", color: "" }), 2800);
       } else {
         setName("");
         setPrice("");
@@ -98,6 +106,14 @@ function CreateMeal() {
           Submit
         </button>
       </form>
+      {/* Toast */}
+      {toast.msg ? (
+        <div
+          className={`fixed right-5 top-5 z-50 rounded px-6 py-3 text-white shadow-lg ${toast.color}`}
+        >
+          {toast.msg}
+        </div>
+      ) : null}
     </div>
   );
 }
