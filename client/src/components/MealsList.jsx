@@ -3,6 +3,7 @@ import { useOutletContext } from "react-router-dom";
 import MealsListModal from "./MealsListModal";
 
 export default function MealsList({ randomize = false, size }) {
+  const userId = localStorage.getItem("userId");
   const { fetchCartCount } = useOutletContext();
   const [meals, setMeals] = useState([]);
   const [toast, setToast] = useState({ msg: "", color: "" });
@@ -139,7 +140,20 @@ export default function MealsList({ randomize = false, size }) {
                     Price: {Number(selected.price || 0).toFixed(2)}₪
                   </div>
                   <button
-                    onClick={() => handleAddToCart(selected._id)}
+                    onClick={() => {
+                      if (!userId) {
+                        setToast({
+                          msg: "Log in first.",
+                          color: "bg-yellow-600",
+                        });
+                        setTimeout(
+                          () => setToast({ msg: "", color: "" }),
+                          2800
+                        );
+                      } else {
+                        handleAddToCart(selected._id);
+                      }
+                    }}
                     className="cursor-pointer rounded-full bg-gradient-to-r from-indigo-900 to-orange-500 px-5 py-2.5 font-semibold text-white shadow-md"
                   >
                     Add to cart
