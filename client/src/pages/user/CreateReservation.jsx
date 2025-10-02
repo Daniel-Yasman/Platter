@@ -7,6 +7,7 @@ export default function CreateReservation() {
   const [time, setTime] = useState("");
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
+  const [toast, setToast] = useState({ msg: "", color: "" });
 
   const [cardName, setCardName] = useState("");
   const [cardNumber, setCardNumber] = useState("");
@@ -19,8 +20,17 @@ export default function CreateReservation() {
   useEffect(() => {
     async function fetchCart() {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/${userId}`);
-        const data = await res.json();
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/user/${userId}`
+        );
+        if (!response.ok) {
+          setToast({
+            msg: `Error ${response.status}: ${response.statusText}`,
+            color: "bg-red-600",
+          });
+          setTimeout(() => setToast({ msg: "", color: "" }), 3000);
+        }
+        const data = await response.json();
         setCart(data.cart);
         setTotal(data.total);
       } catch (e) {
@@ -32,9 +42,22 @@ export default function CreateReservation() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!date || !time) return alert("Select date and time");
-    if (!cardName || !cardNumber || !month || !year || !cvv)
-      return alert("Fill payment fields (demo only)");
+    if (!date || !time) {
+      setToast({
+        msg: "Select date and time",
+        color: "bg-yellow-600",
+      });
+      setTimeout(() => setToast({ msg: "", color: "" }), 3000);
+      return;
+    }
+    if (!cardName || !cardNumber || !month || !year || !cvv) {
+      setToast({
+        msg: "Fill payment fields (demo only)",
+        color: "bg-yellow-600",
+      });
+      setTimeout(() => setToast({ msg: "", color: "" }), 3000);
+      return;
+    }
 
     const data = {
       date: `${date}T${time}`,
@@ -43,21 +66,38 @@ export default function CreateReservation() {
     };
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/reservation/${userId}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/reservation/${userId}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
       if (!response.ok) {
         const parseErr = response.json();
-        alert(parseErr.error);
+        setToast({
+          msg: parseErr.error,
+          color: "bg-red-600",
+        });
+        setTimeout(() => setToast({ msg: "", color: "" }), 2800);
         return;
       }
-      alert("Reservation created");
-      // TODO: navigate to home or something
+      setToast({
+        msg: "Reservation created",
+        color: "bg-green-600",
+      });
+      setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+      setTimeout(() => {
+        navigate("/");
+      }, 100);
     } catch (e) {
       console.error(e);
-      alert("Network error");
+      setToast({
+        msg: "Network error",
+        color: "bg-red-600",
+      });
+      setTimeout(() => setToast({ msg: "", color: "" }), 2800);
     }
   }
 
@@ -211,6 +251,14 @@ export default function CreateReservation() {
           Submit Reservation
         </button>
       </form>
+      {/* Toast */}
+      {toast.msg ? (
+        <div
+          className={`fixed right-5 top-5 z-50 rounded px-6 py-3 text-white shadow-lg ${toast.color}`}
+        >
+          {toast.msg}
+        </div>
+      ) : null}
     </div>
   );
 }

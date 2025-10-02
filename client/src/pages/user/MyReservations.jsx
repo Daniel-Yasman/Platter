@@ -5,15 +5,30 @@ export default function MyReservations() {
   const userId = localStorage.getItem("userId");
   const [reservations, setReservations] = useState([]);
   const [message, setMessage] = useState("Loading…");
+  const [toast, setToast] = useState({ msg: "", color: "" });
   useEffect(() => {
     if (!userId) {
+      setToast({
+        msg: `Error ${response.status}: ${response.statusText}`,
+        color: "bg-red-600",
+      });
+      setTimeout(() => setToast({ msg: "", color: "" }), 2800);
       setMessage("Log in first");
       return;
     }
     async function fetchReservations() {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/reservation/${userId}`);
-        if (!response.ok) return setMessage("Failed to load reservations");
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/reservation/${userId}`
+        );
+        if (!response.ok) {
+          setToast({
+            msg: "Failed to load reservations",
+            color: "bg-red-600",
+          });
+          setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+          return;
+        }
         const data = await response.json();
         setReservations(data.reservations);
         setMessage(data.reservations.length ? "" : "No reservations found");
@@ -25,25 +40,43 @@ export default function MyReservations() {
   }, [userId]);
   function handleLogout() {
     localStorage.clear("userId");
-    window.location.href = "/";
+    setToast({
+      msg: "Logging off...",
+      color: "bg-yellow-600",
+    });
+    setTimeout(() => setToast({ msg: "", color: "" }), 3000);
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 3100);
   }
   async function handleDelete(id) {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/reservation/${userId}/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/reservation/${userId}/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       if (!response.ok) {
         const { error } = await response
           .json()
           .catch(() => ({ error: "Delete failed" }));
-        alert(error || "Delete failed");
+        setToast({
+          msg: error || "Delete failed",
+          color: "bg-red-600",
+        });
+        setTimeout(() => setToast({ msg: "", color: "" }), 3000);
         return;
       }
-      //
+
       setReservations((rs) => rs.filter((r) => r._id !== id));
       if (reservations.length - 1 === 0) setMessage("No reservations found");
     } catch {
-      alert("Delete failed");
+      setToast({
+        msg: "Delete failed",
+        color: "bg-red-600",
+      });
+      setTimeout(() => setToast({ msg: "", color: "" }), 3000);
     }
   }
 
@@ -115,6 +148,14 @@ export default function MyReservations() {
           ))}
         </div>
       </div>
+      {/* Toast */}
+      {toast.msg ? (
+        <div
+          className={`fixed right-5 top-5 z-50 rounded px-6 py-3 text-white shadow-lg ${toast.color}`}
+        >
+          {toast.msg}
+        </div>
+      ) : null}
     </div>
   );
 }

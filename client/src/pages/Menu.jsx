@@ -9,13 +9,23 @@ function Menu() {
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [toast, setToast] = useState({ msg: "", color: "" });
 
   useEffect(() => {
     async function fetchFoods() {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/food`);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/food`
+        );
+        if (!response.ok) {
+          setToast({
+            msg: `Error ${response.status}: ${response.statusText}`,
+            color: "bg-red-600",
+          });
+          setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+          return;
+        }
+        const data = await response.json();
         setFoods(Array.isArray(data?.foods) ? data.foods : []);
       } catch (err) {
         console.error(err);
@@ -28,18 +38,39 @@ function Menu() {
   }, []);
 
   async function handleAdd(foodId) {
-    if (!userId) return alert("Please log in first");
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user/${userId}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ foodId, quantity: 1 }),
+    if (!userId) {
+      setToast({
+        msg: "Please log in first",
+        color: "bg-yellow-600",
       });
-      if (!response.ok) return alert("Failed to add to cart");
+      setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+      return;
+    }
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/user/${userId}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ foodId, quantity: 1 }),
+        }
+      );
+      if (!response.ok) {
+        setToast({
+          msg: "Failed to add to cart",
+          color: "bg-red-600",
+        });
+        setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+        return;
+      }
       await fetchCartCount();
     } catch (err) {
       console.error(err);
-      alert("Failed to add to cart");
+      setToast({
+        msg: "Failed to add to cart",
+        color: "bg-red-600",
+      });
+      setTimeout(() => setToast({ msg: "", color: "" }), 2800);
     }
   }
 
@@ -169,6 +200,14 @@ function Menu() {
             </MealsListModal>
           );
         })()}
+      {/* Toast */}
+      {toast.msg ? (
+        <div
+          className={`fixed right-5 top-5 z-50 rounded px-6 py-3 text-white shadow-lg ${toast.color}`}
+        >
+          {toast.msg}
+        </div>
+      ) : null}
     </div>
   );
 }

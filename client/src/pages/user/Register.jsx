@@ -5,19 +5,27 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
+  const [toast, setToast] = useState({ msg: "", color: "" });
   const navigate = useNavigate();
 
   async function handleClick(e) {
-    e.preventDefault(); // preserve submit behavior, no logic change
+    e.preventDefault();
     const data = { name, email, password, phone };
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/user/register`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
       if (!response.ok) {
-        console.error(`Error ${response.status}: ${response.statusText}`);
+        setToast({
+          msg: `Error ${response.status}: ${response.statusText}`,
+          color: "bg-red-600",
+        });
+        setTimeout(() => setToast({ msg: "", color: "" }), 2800);
       } else {
         setName("");
         setEmail("");
@@ -128,6 +136,14 @@ function Register() {
           </a>
         </span>
       </form>
+      {/* Toast */}
+      {toast.msg ? (
+        <div
+          className={`fixed right-5 top-5 z-50 rounded px-6 py-3 text-white shadow-lg ${toast.color}`}
+        >
+          {toast.msg}
+        </div>
+      ) : null}
     </main>
   );
 }

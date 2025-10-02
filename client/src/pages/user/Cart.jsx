@@ -6,13 +6,29 @@ export default function Cart() {
   const userId = localStorage.getItem("userId");
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState(0);
+  const [toast, setToast] = useState({ msg: "", color: "" });
 
   async function fetchUserCart() {
-    if (!userId) return alert("Please log in first");
+    if (!userId) {
+      setToast({
+        msg: "Please log in first",
+        color: "bg-yellow-600",
+      });
+      setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+      return;
+    }
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/${userId}`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/user/${userId}`
+      );
+      if (!response.ok) {
+        setToast({
+          msg: `Error ${response.status}: ${response.statusText}`,
+          color: "bg-red-600",
+        });
+        setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+      }
+      const data = await response.json();
       setItems(Array.isArray(data?.cart) ? data.cart : []);
       setTotal(Number(data?.total || 0));
     } catch (e) {
@@ -30,39 +46,61 @@ export default function Cart() {
       return handleRemoveItem(foodId);
     }
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/${userId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ foodId, quantity: Number(nextQty) }),
-      });
-      if (!res.ok) {
-        const t = await res.text();
-        alert(t || "Update failed");
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/user/${userId}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ foodId, quantity: Number(nextQty) }),
+        }
+      );
+      if (!response.ok) {
+        const t = await response.text();
+        setToast({
+          msg: t || "Update failed",
+          color: "bg-red-600",
+        });
+        setTimeout(() => setToast({ msg: "", color: "" }), 2800);
         return;
       }
       await fetchUserCart();
       await fetchCartCount(); // keep navbar in sync
     } catch (e) {
       console.error(e);
-      alert("Update failed");
+      setToast({
+        msg: "Update failed",
+        color: "bg-red-600",
+      });
+      setTimeout(() => setToast({ msg: "", color: "" }), 2800);
     }
   }
 
   async function handleRemoveItem(foodId) {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/${userId}/${foodId}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/user/${userId}/${foodId}`,
+        {
+          method: "DELETE",
+        }
+      );
       if (!res.ok) {
         const t = await res.text();
-        alert(t || "Remove failed");
+        setToast({
+          msg: t || "Remove failed",
+          color: "bg-red-600",
+        });
+        setTimeout(() => setToast({ msg: "", color: "" }), 2800);
         return;
       }
       await fetchUserCart();
       await fetchCartCount(); // decrement navbar count when unique item removed
     } catch (e) {
       console.error(e);
-      alert("Remove failed");
+      setToast({
+        msg: "Remove failed",
+        color: "bg-red-600",
+      });
+      setTimeout(() => setToast({ msg: "", color: "" }), 2800);
     }
   }
 
@@ -92,7 +130,9 @@ export default function Cart() {
                   <div className="flex items-center justify-between gap-4 px-2">
                     <img
                       className="h-24 w-24 rounded-lg object-cover"
-                      src={`${import.meta.env.VITE_API_URL}${item.foodId?.image}`}
+                      src={`${import.meta.env.VITE_API_URL}${
+                        item.foodId?.image
+                      }`}
                       alt={item.foodId?.name || "Item"}
                       loading="lazy"
                       decoding="async"
@@ -166,6 +206,14 @@ export default function Cart() {
           </div>
         </div>
       </div>
+      {/* Toast */}
+      {toast.msg ? (
+        <div
+          className={`fixed right-5 top-5 z-50 rounded px-6 py-3 text-white shadow-lg ${toast.color}`}
+        >
+          {toast.msg}
+        </div>
+      ) : null}
     </div>
   );
 }
