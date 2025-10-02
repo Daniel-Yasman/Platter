@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaCircleUser } from "react-icons/fa6";
 import { LuShoppingCart } from "react-icons/lu";
+import { useState } from "react";
 
 function Navbar({ cartCount = 0, userName = "" }) {
   const userId = localStorage.getItem("userId");
@@ -89,6 +90,14 @@ function Navbar({ cartCount = 0, userName = "" }) {
           )}
         </li>
       </ul>
+      {/* Toast */}
+      {toast.msg ? (
+        <div
+          className={`fixed right-5 top-5 z-50 rounded px-6 py-3 text-white shadow-lg ${toast.color}`}
+        >
+          {toast.msg}
+        </div>
+      ) : null}
     </div>
   );
 }
