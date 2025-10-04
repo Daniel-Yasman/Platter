@@ -178,6 +178,19 @@ async function removeCartItem(req, res) {
   }
 }
 
+async function resetCart(req, res) {
+  const { userId } = req.params;
+  if (!userId) return res.status(404).json({ error: "no_userId" });
+  try {
+    await User.updateOne({ _id: userId }, { $set: { cart: [] } });
+    const user = await User.findById(userId).select("cart");
+    return res.status(200).json({ message: "cart_cleared", cart: user.cart });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "server_error" });
+  }
+}
+
 module.exports = {
   register,
   login,
@@ -185,4 +198,5 @@ module.exports = {
   getUser,
   updateCartItem,
   removeCartItem,
+  resetCart,
 };
