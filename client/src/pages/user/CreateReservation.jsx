@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
 export default function CreateReservation() {
   const userId = localStorage.getItem("userId");
   const [date, setDate] = useState("");
@@ -15,7 +15,7 @@ export default function CreateReservation() {
   );
   const [year, setYear] = useState(new Date().getFullYear());
   const [cvv, setCvv] = useState("");
-
+  const navigate = useNavigate();
   useEffect(() => {
     async function fetchCart() {
       try {
