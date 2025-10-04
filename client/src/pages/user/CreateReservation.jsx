@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 export default function CreateReservation() {
   const userId = localStorage.getItem("userId");
   const [date, setDate] = useState("");
@@ -14,6 +15,7 @@ export default function CreateReservation() {
   );
   const [year, setYear] = useState(new Date().getFullYear());
   const [cvv, setCvv] = useState("");
+  const navigate = useNavigate();
   useEffect(() => {
     async function fetchCart() {
       try {
@@ -111,19 +113,11 @@ export default function CreateReservation() {
         msg: "Reservation created",
         color: "bg-green-600",
       });
-      setTimeout(() => setToast({ msg: "", color: "" }), 2800);
-      setDate("");
-      setTime("");
+      setTimeout(() => setToast({ msg: "", color: "" }), 3000);
       await cartReset();
-      setTotal("");
-      setCardName("");
-      setCardNumber("");
-      setMonth("");
-      setYear("");
-      setCvv("");
       setTimeout(() => {
-        window.location.href = "/";
-      }, 3000);
+        navigate("/");
+      }, 3500);
     } catch (e) {
       console.error(e);
       setToast({
