@@ -42,11 +42,11 @@ export default function MealsList({ randomize = false, size }) {
   const handleAddToCart = async (mealId) => {
     try {
       const userId = localStorage.getItem("userId");
-      if (!userId)
-        return () => {
-          setToast({ msg: "Log in first", color: "bg-yellow-500" });
-          setTimeout(() => setToast({ msg: "", color: "" }), 2800);
-        };
+      if (!userId) {
+        setToast({ msg: "Log in first", color: "bg-yellow-500" });
+        setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+        return;
+      }
       const res = await fetch(
         `${import.meta.env.VITE_API_URL}/api/user/${userId}`,
         {
