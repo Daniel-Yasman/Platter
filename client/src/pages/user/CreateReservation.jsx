@@ -43,7 +43,7 @@ export default function CreateReservation() {
   async function cartReset() {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/${userId}/cartReset`,
+        `${import.meta.env.VITE_API_URL}/api/user/${userId}/cartReset`,
         {
           method: "PATCH",
         }
