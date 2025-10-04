@@ -51,7 +51,7 @@ function Navbar({ cartCount = 0, userName = "" }) {
         )}
         <li>
           {isLoggedIn ? (
-            <Link to="/cart" className="relative inline-block">
+            <Link to="/cart" className="cursor-pointer relative inline-block">
               <LuShoppingCart className="w-12 h-12" />
               <span className="absolute top-[13.5px] left-[23.2px] text-sm font-semibold">
                 {cartCount}
@@ -59,6 +59,7 @@ function Navbar({ cartCount = 0, userName = "" }) {
             </Link>
           ) : (
             <button
+              className="cursor-pointer"
               onClick={() => {
                 setToast({
                   msg: "Log in first.",
@@ -82,7 +83,13 @@ function Navbar({ cartCount = 0, userName = "" }) {
             </Link>
           ) : (
             <button
-              onClick={() => alert("Log in first.")}
+              onClick={() => {
+                setToast({
+                  msg: "Log in first.",
+                  color: "bg-yellow-600",
+                });
+                setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+              }}
               className="cursor-pointer px-5 py-2.5 bg-gradient-to-r from-indigo-900 to-orange-500 text-white font-semibold rounded-full shadow-md hover:scale-105 hover:from-orange-500 hover:to-indigo-800 transition transform duration-200"
             >
               Make a reservation
