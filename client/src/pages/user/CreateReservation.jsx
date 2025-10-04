@@ -39,6 +39,33 @@ export default function CreateReservation() {
     fetchCart();
   }, [userId]);
 
+  async function cartReset() {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/${userId}/cartReset`,
+        {
+          method: "PATCH",
+        }
+      );
+      if (!response.ok) {
+        setToast({
+          msg: `Error ${response.status}: ${response.statusText}`,
+          color: "bg-red-600",
+        });
+        setTimeout(() => setToast({ msg: "", color: "" }), 3000);
+        return;
+      } else {
+        setCart([]);
+      }
+    } catch (err) {
+      console.error(err);
+      setToast({
+        msg: err,
+        color: "bg-red-600",
+      });
+      setTimeout(() => setToast({ msg: "", color: "" }), 3000);
+    }
+  }
   async function handleSubmit(e) {
     e.preventDefault();
     if (!date || !time) {
@@ -89,7 +116,7 @@ export default function CreateReservation() {
       setTimeout(() => setToast({ msg: "", color: "" }), 2800);
       setDate("");
       setTime("");
-      setCart("");
+      await cartReset();
       setTotal("");
       setCardName("");
       setCardNumber("");
