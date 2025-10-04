@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 
 export default function CreateReservation() {
   const userId = localStorage.getItem("userId");
-
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [cart, setCart] = useState([]);
@@ -88,9 +87,18 @@ export default function CreateReservation() {
         color: "bg-green-600",
       });
       setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+      setDate("");
+      setTime("");
+      setCart("");
+      setTotal("");
+      setCardName("");
+      setCardNumber("");
+      setMonth("");
+      setYear("");
+      setCvv("");
       setTimeout(() => {
         navigate("/");
-      }, 100);
+      }, 3000);
     } catch (e) {
       console.error(e);
       setToast({
