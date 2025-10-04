@@ -100,9 +100,9 @@ export default function CreateReservation() {
         }
       );
       if (!response.ok) {
-        const parseErr = response.json();
+        const parsed = await response.json().catch(() => null); // <-- await
         setToast({
-          msg: parseErr.error,
+          msg: parsed?.error || `Error ${response.status}`,
           color: "bg-red-600",
         });
         setTimeout(() => setToast({ msg: "", color: "" }), 2800);
