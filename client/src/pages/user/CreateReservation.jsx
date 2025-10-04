@@ -28,10 +28,11 @@ export default function CreateReservation() {
             color: "bg-red-600",
           });
           setTimeout(() => setToast({ msg: "", color: "" }), 3000);
+          return;
         }
         const data = await response.json();
-        setCart(data.cart);
-        setTotal(data.total);
+        setCart(data.cart ?? []);
+        setTotal(data.total ?? 0);
       } catch (e) {
         console.error(e);
       }
@@ -54,18 +55,16 @@ export default function CreateReservation() {
         });
         setTimeout(() => setToast({ msg: "", color: "" }), 3000);
         return;
-      } else {
-        setCart([]);
       }
-    } catch (err) {
-      console.error(err);
-      setToast({
-        msg: err,
-        color: "bg-red-600",
-      });
+      const result = await response.json().catch(() => null);
+      setCart(result?.cart ?? []); // trust backend state
+    } catch (error) {
+      console.error(error);
+      setToast({ msg: String(error?.message || error), color: "bg-red-600" });
       setTimeout(() => setToast({ msg: "", color: "" }), 3000);
     }
   }
+
   async function handleSubmit(e) {
     e.preventDefault();
     if (!date || !time) {
