@@ -131,7 +131,7 @@ function Register() {
 
         <span className="flex gap-1 text-sm">
           Already have an account?
-          <Link className="text-teal-400 hover:underline" to="/login">
+          <Link className="text-orange-300 hover:underline" to="/login">
             Login
           </Link>
         </span>
