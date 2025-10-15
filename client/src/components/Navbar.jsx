@@ -26,8 +26,9 @@ function Navbar({ cartCount = 0, userName = "" }) {
       <Link to="/" className="justify-self-center">
         <img
           className="w-32 h-auto"
-          // ${import.meta.env.VITE_API_URL} for later
-          src={`/images/pages/home/Icon_transparent_2.png`}
+          src={`${
+            import.meta.env.VITE_API_URL
+          }/images/pages/home/Icon_transparent_2.png`}
           alt="Logo"
         />
       </Link>

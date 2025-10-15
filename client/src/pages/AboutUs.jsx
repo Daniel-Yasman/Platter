@@ -43,14 +43,16 @@ function AboutUs() {
         <div className="mt-20 relative w-[400px] h-fit">
           <img
             className="w-fit"
-            // ${import.meta.env.VITE_API_URL} maybe later
-            src={`/images/pages/about/Hostess.png`}
+            src={`${
+              import.meta.env.VITE_API_URL
+            }/images/pages/about/Hostess.png`}
             alt="Hostess"
           />
           <img
             className="absolute -top-20 -right-24 w-[180px] h-[280px]"
-            // ${import.meta.env.VITE_API_URL} maybe later
-            src={`/images/pages/about/Shawarma with hand.png`}
+            src={`${
+              import.meta.env.VITE_API_URL
+            }/images/pages/about/Shawarma with hand.png`}
             alt="Shawarma with hand"
           />
         </div>
