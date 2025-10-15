@@ -13,8 +13,7 @@ function Register() {
     const data = { name, email, password, phone };
     try {
       const response = await fetch(
-        // ${import.meta.env.VITE_API_URL} for later
-        `/api/user/register`,
+        `${import.meta.env.VITE_API_URL}/api/user/register`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

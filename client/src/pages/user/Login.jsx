@@ -11,8 +11,7 @@ function Login() {
     const data = { email, password };
     try {
       const response = await fetch(
-        // ${import.meta.env.VITE_API_URL} for later
-        `/api/user/login`,
+        `${import.meta.env.VITE_API_URL}/api/user/login`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

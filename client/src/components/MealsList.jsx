@@ -14,8 +14,7 @@ export default function MealsList({ randomize = false, size }) {
     async function fetchMeals() {
       try {
         const response = await fetch(
-          // ${import.meta.env.VITE_API_URL} for later
-          `/api/food`
+          `${import.meta.env.VITE_API_URL}/api/food`
         );
         if (!response.ok) {
           setToast({ msg: "Failed to load meals", color: "bg-red-600" });
@@ -52,8 +51,7 @@ export default function MealsList({ randomize = false, size }) {
         return;
       }
       const res = await fetch(
-        // ${import.meta.env.VITE_API_URL} for later
-        `/api/user/${userId}`,
+        `${import.meta.env.VITE_API_URL}/api/user/${userId}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -88,8 +86,7 @@ export default function MealsList({ randomize = false, size }) {
             <div className="relative">
               <img
                 className="mb-3 h-52 w-52 rounded-xl object-cover"
-                //${import.meta.env.VITE_API_URL} for later
-                src={`${m.image}`}
+                src={`${import.meta.env.VITE_API_URL}${m.image}`}
                 alt={m.name}
                 loading="lazy"
                 decoding="async"
@@ -121,8 +118,7 @@ export default function MealsList({ randomize = false, size }) {
             >
               <div className="relative flex h-[250px] w-[250px] justify-center">
                 <img
-                  // ${import.meta.env.VITE_API_URL} for later
-                  src={`${selected.image}`}
+                  src={`${import.meta.env.VITE_API_URL}${selected.image}`}
                   alt={selected.name}
                   className="h-[250px] w-[250px] rounded-xl object-cover"
                   loading="lazy"

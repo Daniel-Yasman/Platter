@@ -11,8 +11,9 @@ const Extras = () => {
         <section className="flex flex-col items-center justify-center">
           <img
             className="w-32 h-32"
-            // ${import.meta.env.VITE_API_URL} for later
-            src={`/images/pages/home/Carnivores Table Nuggets Icon.png`}
+            src={`${
+              import.meta.env.VITE_API_URL
+            }/images/pages/home/Carnivores Table Nuggets Icon.png`}
             alt="Visit our Store"
             loading="lazy"
             decoding="async"
@@ -23,8 +24,9 @@ const Extras = () => {
         <section className="flex flex-col items-center justify-center">
           <img
             className="w-32 h-32"
-            // ${import.meta.env.VITE_API_URL} for later
-            src={`/images/pages/home/Pizza Icon.png`}
+            src={`${
+              import.meta.env.VITE_API_URL
+            }/images/pages/home/Pizza Icon.png`}
             alt="Order Online & Save Time"
             loading="lazy"
             decoding="async"
@@ -35,8 +37,9 @@ const Extras = () => {
         <section className="flex flex-col justify-center items-center">
           <img
             className="w-32 h-32"
-            // ${import.meta.env.VITE_API_URL} for later
-            src={`/images/pages/home/Cake Icon.png`}
+            src={`${
+              import.meta.env.VITE_API_URL
+            }/images/pages/home/Cake Icon.png`}
             alt="Table Ready in Seconds"
             loading="lazy"
             decoding="async"

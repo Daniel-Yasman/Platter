@@ -21,8 +21,7 @@ export default function CreateReservation() {
     async function fetchCart() {
       try {
         const response = await fetch(
-          // ${import.meta.env.VITE_API_URL} for later
-          `/api/user/${userId}`
+          `${import.meta.env.VITE_API_URL}/api/user/${userId}`
         );
         if (!response.ok) {
           setToast({
@@ -45,8 +44,7 @@ export default function CreateReservation() {
   async function cartReset() {
     try {
       const response = await fetch(
-        // ${import.meta.env.VITE_API_URL} for later
-        `/api/user/${userId}/cartReset`,
+        `${import.meta.env.VITE_API_URL}/api/user/${userId}/cartReset`,
         {
           method: "PATCH",
         }
@@ -95,8 +93,7 @@ export default function CreateReservation() {
 
     try {
       const response = await fetch(
-        // ${import.meta.env.VITE_API_URL} for later
-        `/api/reservation/${userId}`,
+        `${import.meta.env.VITE_API_URL}/api/reservation/${userId}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

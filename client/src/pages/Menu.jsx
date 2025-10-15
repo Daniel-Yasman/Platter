@@ -15,8 +15,7 @@ function Menu() {
     async function fetchFoods() {
       try {
         const response = await fetch(
-          // ${import.meta.env.VITE_API_URL} maybe later
-          `/api/food`
+          `${import.meta.env.VITE_API_URL}/api/food`
         );
         if (!response.ok) {
           setToast({
@@ -49,8 +48,7 @@ function Menu() {
     }
     try {
       const response = await fetch(
-        // ${import.meta.env.VITE_API_URL} maybe later
-        `/api/user/${userId}`,
+        `${import.meta.env.VITE_API_URL}/api/user/${userId}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -114,15 +112,10 @@ function Menu() {
                   </p>
                   <img
                     className="mb-3 h-52 w-full rounded-xl object-cover"
-                    //${import.meta.env.VITE_API_URL} for later
-                    src={`${food.image}`}
+                    src={`${import.meta.env.VITE_API_URL}${food.image}`}
                     alt={food.name}
                     loading="lazy"
                     decoding="async"
-                    onError={(e) => {
-                      e.currentTarget.src =
-                        "https://via.placeholder.com/400x208?text=No+Image";
-                    }}
                   />
                   <div className="mb-2 text-sm text-gray-600 line-clamp-2">
                     {food.description}
@@ -164,8 +157,7 @@ function Menu() {
               <div className="flex items-center justify-center gap-4 sm:gap-6">
                 <div className="relative flex h-[250px] w-[250px] justify-center">
                   <img
-                    //${import.meta.env.VITE_API_URL} for later
-                    src={`${selected.image}`}
+                    src={`${import.meta.env.VITE_API_URL}${selected.image}`}
                     alt={selected.name}
                     className={`h-[250px] w-[250px] rounded-xl object-cover ${
                       selectedOutOfStock ? "opacity-60" : ""

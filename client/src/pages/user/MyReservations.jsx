@@ -21,8 +21,7 @@ export default function MyReservations() {
     async function fetchReservations() {
       try {
         const response = await fetch(
-          // ${import.meta.env.VITE_API_URL} for later
-          `/api/reservation/${userId}`
+          `${import.meta.env.VITE_API_URL}/api/reservation/${userId}`
         );
         if (!response.ok) {
           setToast({
@@ -53,8 +52,7 @@ export default function MyReservations() {
   async function handleDelete(id) {
     try {
       const response = await fetch(
-        // ${import.meta.env.VITE_API_URL} for later
-        `/api/reservation/${userId}/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/reservation/${userId}/${id}`,
         {
           method: "DELETE",
         }
@@ -124,8 +122,7 @@ export default function MyReservations() {
                     className="flex w-28 flex-col items-center text-center"
                   >
                     <img
-                      // ${import.meta.env.VITE_API_URL} for later
-                      src={`${c.foodId.image}`}
+                      src={`${import.meta.env.VITE_API_URL}${c.foodId.image}`}
                       alt={c.foodId.name}
                       className="mb-1 h-24 w-24 rounded-md border object-cover"
                       loading="lazy"

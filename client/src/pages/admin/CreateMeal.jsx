@@ -15,8 +15,7 @@ function CreateMeal() {
 
     try {
       const response = await fetch(
-        // ${import.meta.env.VITE_API_URL} for later
-        `/api/admin/${adminId}`,
+        `${import.meta.env.VITE_API_URL}/api/admin/${adminId}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

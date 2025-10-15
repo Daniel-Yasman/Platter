@@ -19,8 +19,7 @@ export default function Cart() {
     }
     try {
       const response = await fetch(
-        // ${import.meta.env.VITE_API_URL} for later
-        `/api/user/${userId}`
+        `${import.meta.env.VITE_API_URL}/api/user/${userId}`
       );
       if (!response.ok) {
         setToast({
@@ -48,8 +47,7 @@ export default function Cart() {
     }
     try {
       const response = await fetch(
-        // ${import.meta.env.VITE_API_URL} for later
-        `/api/user/${userId}`,
+        `${import.meta.env.VITE_API_URL}/api/user/${userId}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -80,8 +78,7 @@ export default function Cart() {
   async function handleRemoveItem(foodId) {
     try {
       const res = await fetch(
-        // ${import.meta.env.VITE_API_URL} for later
-        `/api/user/${userId}/${foodId}`,
+        `${import.meta.env.VITE_API_URL}/api/user/${userId}/${foodId}`,
         {
           method: "DELETE",
         }
@@ -133,8 +130,9 @@ export default function Cart() {
                   <div className="flex items-center justify-between gap-4 px-2">
                     <img
                       className="h-24 w-24 rounded-lg object-cover"
-                      // ${import.meta.env.VITE_API_URL} for later
-                      src={`${item.foodId?.image}`}
+                      src={`${import.meta.env.VITE_API_URL}${
+                        item.foodId?.image
+                      }`}
                       alt={item.foodId?.name || "Item"}
                       loading="lazy"
                       decoding="async"

@@ -12,8 +12,7 @@ function DeleteMeal() {
     const fetchFoods = async () => {
       try {
         const response = await fetch(
-          // ${import.meta.env.VITE_API_URL} for later
-          `/api/food/`
+          `${import.meta.env.VITE_API_URL}/api/food/`
         );
         if (!response.ok) {
           setToast({
@@ -36,8 +35,7 @@ function DeleteMeal() {
     e.preventDefault();
     try {
       const response = await fetch(
-        // ${import.meta.env.VITE_API_URL} for later
-        `/api/admin/foods/${adminId}/${foodId}`,
+        `${import.meta.env.VITE_API_URL}/api/admin/foods/${adminId}/${foodId}`,
         {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },

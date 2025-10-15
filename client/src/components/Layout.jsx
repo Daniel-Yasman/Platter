@@ -15,8 +15,9 @@ function Layout() {
       return;
     }
     try {
-      // ${import.meta.env.VITE_API_URL} for later
-      const res = await fetch(`/api/user/${userId}`);
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/user/${userId}`
+      );
       if (!res.ok) {
         setCartCount(0);
         setUserName("");
@@ -35,7 +36,6 @@ function Layout() {
     fetchCartCount();
   }, [fetchCartCount]);
 
-  // Optional: update when localStorage userId changes in another tab
   useEffect(() => {
     const onStorage = (e) => {
       if (e.key === "userId") fetchCartCount();

@@ -11,8 +11,7 @@ const HeroBanner = () => {
       >
         <img
           className="absolute top-0 left-0 w-full h-auto min-h-[120%]"
-          // ${import.meta.env.VITE_API_URL} for later
-          src={`/images/pages/home/Mainpage.png`}
+          src={`${import.meta.env.VITE_API_URL}/images/pages/home/Mainpage.png`}
           alt="Mainpage"
         />
       </div>

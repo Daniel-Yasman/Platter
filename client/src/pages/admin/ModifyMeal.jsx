@@ -16,8 +16,7 @@ function ModifyMeal() {
     const fetchFoods = async () => {
       try {
         const response = await fetch(
-          // ${import.meta.env.VITE_API_URL} for later
-          `/api/food/`
+          `${import.meta.env.VITE_API_URL}/api/food/`
         );
         if (!response.ok) {
           setToast({
@@ -42,8 +41,7 @@ function ModifyMeal() {
 
     try {
       const response = await fetch(
-        // ${import.meta.env.VITE_API_URL} for later
-        `/api/admin/${adminId}/${foodId}`,
+        `${import.meta.env.VITE_API_URL}/api/admin/${adminId}/${foodId}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
