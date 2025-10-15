@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [toast, setToast] = useState({ msg: "", color: "" });
-
+  const navigate = useNavigate();
   async function handleClick(e) {
     e.preventDefault();
     const data = { email, password };
@@ -35,7 +35,7 @@ function Login() {
         });
         setTimeout(() => setToast({ msg: "", color: "" }), 3000);
         setTimeout(() => {
-          window.location.href = "/";
+          navigate("/");
         }, 3100);
       }
     } catch (err) {
@@ -90,14 +90,6 @@ function Login() {
           Log In
         </button>
 
-        <span className="text-center">
-          <Link
-            className="cursor-pointer text-blue-500 hover:underline"
-            to="/resetpassword"
-          >
-            Forgot Password?
-          </Link>
-        </span>
         <span className="text-center">
           Don't have an account?{" "}
           <Link className="text-teal-400 hover:underline" to="/register">
