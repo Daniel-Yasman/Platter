@@ -8,44 +8,26 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT ?? 3000;
 
-app.use(
-  cors({
-    origin: "https://platter-mu.vercel.app",
-    credentials: true,
-  })
-);
-app.options(
-  "*",
-  cors({
-    origin: "https://platter-mu.vercel.app",
-    credentials: true,
-  })
-);
+const CORS_OPTS = {
+  origin: "https://platter-mu.vercel.app",
+  credentials: true,
+};
 
-// Use only when running locally ↓
-// app.use(
-//   cors({
-//     origin: "http://localhost:5173",
-//   })
-// );
+app.use(cors(CORS_OPTS));
+app.options(/.*/, cors(CORS_OPTS));
 
-// allow react to access express's ./public folder for images
 app.use("/images", express.static(path.join(__dirname, "public", "images")));
 app.use(express.json());
 
-// IMPORTANT, load DB before the server. obviously.
 connectDB();
 
-app.get("/", (req, res) => {
-  res.send("API running");
-});
+app.get("/", (_req, res) => res.send("API running"));
 
 app.use("/api/admin", require("./routes/adminRoutes"));
 app.use("/api/food", require("./routes/foodRoutes"));
 app.use("/api/reservation", require("./routes/reservationRoutes"));
 app.use("/api/user", require("./routes/userRoutes"));
 
-// 0.0.0.0 is to avoid some container binding issues
 app.listen(PORT, "0.0.0.0", () =>
   console.log(`Server running on port ${PORT}`)
 );
