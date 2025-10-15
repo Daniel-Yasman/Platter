@@ -5,6 +5,9 @@ dotenv.config();
 const connectDB = require("./config/db");
 const path = require("path");
 
+const app = express();
+const PORT = process.env.PORT;
+
 app.use(cors());
 app.options("*", cors());
 
@@ -14,9 +17,6 @@ app.options("*", cors());
 //     origin: "http://localhost:5173",
 //   })
 // );
-
-const app = express();
-const PORT = process.env.PORT;
 
 // allow react to access express's ./public folder for images
 app.use("/images", express.static(path.join(__dirname, "public", "images")));
