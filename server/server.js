@@ -7,12 +7,8 @@ const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT;
-app.use(
-  cors({
-    origin: ["https://platter-8fpu.onrender.com"],
-    credentials: true,
-  })
-);
+
+app.use(cors());
 
 // Use only when running locally ↓
 // app.use(
