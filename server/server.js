@@ -6,10 +6,21 @@ const connectDB = require("./config/db");
 const path = require("path");
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT ?? 3000;
 
-app.use(cors());
-app.options("*", cors());
+app.use(
+  cors({
+    origin: "https://platter-mu.vercel.app",
+    credentials: true,
+  })
+);
+app.options(
+  "*",
+  cors({
+    origin: "https://platter-mu.vercel.app",
+    credentials: true,
+  })
+);
 
 // Use only when running locally ↓
 // app.use(
