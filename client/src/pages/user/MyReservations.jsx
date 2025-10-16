@@ -48,6 +48,9 @@ export default function MyReservations() {
       navigate("/", { replace: true });
     }, 2500);
   }
+  function handleAdminPage() {
+    navigate("/admin");
+  }
 
   async function handleDelete(id) {
     try {
@@ -95,6 +98,11 @@ export default function MyReservations() {
           <span className="text-black font-semibold">
             <button className="cursor-pointer" onClick={handleLogout}>
               Logout
+            </button>
+          </span>
+          <span className="text-black font-semibold">
+            <button className="cursor-pointer" onClick={handleAdminPage}>
+              Admin page
             </button>
           </span>
         </div>
