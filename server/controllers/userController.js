@@ -67,7 +67,10 @@ async function login(req, res) {
     if (!user) return res.status(404).json({ error: "not_found" });
     return res
       .status(200)
-      .json({ message: "login_successfull", data: { userId: user._id } });
+      .json({
+        message: "login_successfull",
+        data: { userId: user._id, role: user.role },
+      });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "server_error" });
