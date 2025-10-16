@@ -36,14 +36,6 @@ function Layout() {
     fetchCartCount();
   }, [fetchCartCount]);
 
-  useEffect(() => {
-    const onStorage = (e) => {
-      if (e.key === "userId") fetchCartCount();
-    };
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
-  }, [fetchCartCount]);
-
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar cartCount={cartCount} userName={userName} />
