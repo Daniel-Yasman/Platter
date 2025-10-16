@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useOutletContext, useNavigate } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 export default function CreateReservation() {
   const userId = localStorage.getItem("userId");
   const [date, setDate] = useState("");
@@ -16,7 +16,6 @@ export default function CreateReservation() {
   );
   const [year, setYear] = useState(new Date().getFullYear());
   const [cvv, setCvv] = useState("");
-  const navigate = useNavigate();
   useEffect(() => {
     async function fetchCart() {
       try {
@@ -117,7 +116,7 @@ export default function CreateReservation() {
       await cartReset();
       await fetchCartCount();
       setTimeout(() => {
-        navigate("/");
+        window.location.href = "/";
       }, 3500);
     } catch (e) {
       console.error(e);

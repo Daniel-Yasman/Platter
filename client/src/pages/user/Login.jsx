@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [toast, setToast] = useState({ msg: "", color: "" });
-  const navigate = useNavigate();
   async function handleClick(e) {
     e.preventDefault();
     const data = { email, password };
@@ -34,10 +33,9 @@ function Login() {
           msg: "Success",
           color: "bg-green-600",
         });
-        setTimeout(() => setToast({ msg: "", color: "" }), 3000);
         setTimeout(() => {
-          navigate("/");
-        }, 3100);
+          window.location.href = "/";
+        }, 2500);
       }
     } catch (err) {
       console.error(err);
