@@ -146,8 +146,7 @@ export default function CreateReservation() {
                 >
                   <img
                     className="h-16 w-16 rounded object-cover"
-                    // ${import.meta.env.VITE_API_URL} for later
-                    src={`${item.foodId.image}`}
+                    src={`${import.meta.env.VITE_API_URL}${item.foodId.image}`}
                     alt={item.foodId.name}
                     loading="lazy"
                     decoding="async"
