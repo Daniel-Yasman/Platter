@@ -27,6 +27,7 @@ function Login() {
       } else {
         const parsed = await response.json();
         localStorage.setItem("userId", parsed.data.userId);
+        localStorage.setItem("role", parsed.data.role);
         setEmail("");
         setPassword("");
         setToast({
