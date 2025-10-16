@@ -63,14 +63,12 @@ async function login(req, res) {
     const { email, password } = req.body;
     if (!email || !password)
       return res.status(400).json({ error: "missing_fields" });
-    const user = await User.findOne({ email: email }, { _id: 1 });
+    const user = await User.findOne({ email }).select("_id role");
     if (!user) return res.status(404).json({ error: "not_found" });
-    return res
-      .status(200)
-      .json({
-        message: "login_successfull",
-        data: { userId: user._id, role: user.role },
-      });
+    return res.status(200).json({
+      message: "login_successfull",
+      data: { userId: user._id, role: user.role },
+    });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "server_error" });
