@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function MyReservations() {
   const userId = localStorage.getItem("userId");
+  const role = localStorage.getItem("role");
   const [reservations, setReservations] = useState([]);
   const [message, setMessage] = useState("Loading…");
   const [toast, setToast] = useState({ msg: "", color: "" });
@@ -49,7 +50,7 @@ export default function MyReservations() {
     }, 2500);
   }
   function handleAdminPage() {
-    navigate("/admin");
+    if (role === "admin") navigate("/admin");
   }
 
   async function handleDelete(id) {
@@ -100,11 +101,13 @@ export default function MyReservations() {
               Logout
             </button>
           </span>
-          <span className="text-black font-semibold">
-            <button className="cursor-pointer" onClick={handleAdminPage}>
-              Admin page
-            </button>
-          </span>
+          {role === "admin" && (
+            <span className="text-black font-semibold">
+              <button className="cursor-pointer" onClick={handleAdminPage}>
+                Admin page
+              </button>
+            </span>
+          )}
         </div>
         <div className="space-y-6">
           {reservations.map((r) => (
