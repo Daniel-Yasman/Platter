@@ -46,7 +46,8 @@ export default function MyReservations() {
     setToast({ msg: "Logging off...", color: "bg-yellow-600" });
     setTimeout(() => {
       localStorage.removeItem("userId");
-      navigate("/", { replace: true });
+      localStorage.removeItem("role");
+      window.location.href = "/";
     }, 2500);
   }
   function handleAdminPage() {
