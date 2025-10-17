@@ -72,9 +72,9 @@ function Navbar({ cartCount = 0, userName = "" }) {
               onClick={() => {
                 setToast({
                   msg: "Log in first.",
-                  color: "bg-yellow-600",
+                  color: "bg-yellow-600 opacity-85",
                 });
-                setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+                setTimeout(() => setToast({ msg: "", color: "" }), 3000);
               }}
             >
               <LuShoppingCart className="w-12 h-12" />
@@ -95,9 +95,9 @@ function Navbar({ cartCount = 0, userName = "" }) {
               onClick={() => {
                 setToast({
                   msg: "Log in first.",
-                  color: "bg-yellow-600",
+                  color: "bg-yellow-600 opacity-85",
                 });
-                setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+                setTimeout(() => setToast({ msg: "", color: "" }), 3000);
               }}
               className="cursor-pointer px-5 py-2.5 bg-gradient-to-r from-indigo-900 to-orange-500 text-white font-semibold rounded-full shadow-md hover:scale-105 hover:from-orange-500 hover:to-indigo-800 transition transform duration-200"
             >

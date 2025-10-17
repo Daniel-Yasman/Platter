@@ -13,9 +13,9 @@ export default function MyReservations() {
     if (!userId) {
       setToast({
         msg: `Log in first`,
-        color: "bg-red-600",
+        color: "bg-red-600 opacity-85",
       });
-      setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+      setTimeout(() => setToast({ msg: "", color: "" }), 3000);
       setMessage("Log in first");
       return;
     }
@@ -27,9 +27,9 @@ export default function MyReservations() {
         if (!response.ok) {
           setToast({
             msg: "Failed to load reservations",
-            color: "bg-red-600",
+            color: "bg-red-600 opacity-85",
           });
-          setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+          setTimeout(() => setToast({ msg: "", color: "" }), 3000);
           return;
         }
         const data = await response.json();
@@ -43,12 +43,12 @@ export default function MyReservations() {
   }, [userId]);
 
   function handleLogout() {
-    setToast({ msg: "Logging off...", color: "bg-yellow-600" });
+    setToast({ msg: "Logging off...", color: "bg-yellow-600 opacity-85" });
     setTimeout(() => {
       localStorage.removeItem("userId");
       localStorage.removeItem("role");
       window.location.href = "/";
-    }, 2500);
+    }, 3000);
   }
   function handleAdminPage() {
     if (role === "admin") navigate("/admin");
@@ -68,7 +68,7 @@ export default function MyReservations() {
           .catch(() => ({ error: "Delete failed" }));
         setToast({
           msg: error || "Delete failed",
-          color: "bg-red-600",
+          color: "bg-red-600 opacity-85",
         });
         setTimeout(() => setToast({ msg: "", color: "" }), 3000);
         return;
@@ -79,7 +79,7 @@ export default function MyReservations() {
     } catch {
       setToast({
         msg: "Delete failed",
-        color: "bg-red-600",
+        color: "bg-red-600 opacity-85",
       });
       setTimeout(() => setToast({ msg: "", color: "" }), 3000);
     }

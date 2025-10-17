@@ -21,9 +21,9 @@ function ModifyMeal() {
         if (!response.ok) {
           setToast({
             msg: `Error ${response.status}: ${response.statusText}`,
-            color: "bg-red-600",
+            color: "bg-red-600 opacity-85",
           });
-          setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+          setTimeout(() => setToast({ msg: "", color: "" }), 3000);
           return;
         }
         const parsed = await response.json();
@@ -51,9 +51,9 @@ function ModifyMeal() {
       if (!response.ok) {
         setToast({
           msg: `Error ${response.status}: ${response.statusText}`,
-          color: "bg-red-600",
+          color: "bg-red-600 opacity-85",
         });
-        setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+        setTimeout(() => setToast({ msg: "", color: "" }), 3000);
       }
     } catch (err) {
       console.error(err);

@@ -20,9 +20,9 @@ function Login() {
       if (!response.ok) {
         setToast({
           msg: `Error ${response.status}: ${response.statusText}`,
-          color: "bg-red-600",
+          color: "bg-red-600 opacity-85",
         });
-        setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+        setTimeout(() => setToast({ msg: "", color: "" }), 3000);
       } else {
         const parsed = await response.json();
         localStorage.setItem("userId", parsed.data.userId);
@@ -31,11 +31,11 @@ function Login() {
         setPassword("");
         setToast({
           msg: "Success",
-          color: "bg-green-600",
+          color: "bg-green-600 opacity-85",
         });
         setTimeout(() => {
           window.location.href = "/";
-        }, 2500);
+        }, 3000);
       }
     } catch (err) {
       console.error(err);

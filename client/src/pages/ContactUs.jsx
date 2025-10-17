@@ -5,7 +5,7 @@ export default function ContactUs() {
   const [email, setEmail] = useState("");
   const [body, setBody] = useState("");
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState({ msg: "", color: "bg-green-500" });
+  const [status, setStatus] = useState({ msg: "", color: "" });
 
   const valid = emailRe.test(email.trim()) && body.trim().length > 0;
 
@@ -22,7 +22,7 @@ export default function ContactUs() {
         msg: !emailRe.test(email.trim())
           ? "Enter a valid email."
           : "Message is required.",
-        color: "bg-yellow-600",
+        color: "bg-yellow-600 opacity-85",
       });
       return;
     }
@@ -32,12 +32,12 @@ export default function ContactUs() {
       await new Promise((r) => setTimeout(r, 600));
       setStatus({
         msg: "Sent successfully! (To no where, it's a demo)",
-        color: "bg-green-500 opacity-90",
+        color: "bg-green-500 opacity-85",
       });
       setEmail("");
       setBody("");
     } catch {
-      setStatus({ msg: "Network error.", color: "bg-red-600" });
+      setStatus({ msg: "Network error.", color: "bg-red-600 opacity-85" });
     } finally {
       setLoading(false);
     }

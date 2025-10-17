@@ -15,9 +15,9 @@ function DeleteReservation() {
       if (!response.ok) {
         setToast({
           msg: `Error ${response.status}: ${response.statusText}`,
-          color: "bg-red-600",
+          color: "bg-red-600 opacity-85",
         });
-        setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+        setTimeout(() => setToast({ msg: "", color: "" }), 3000);
       } else {
         const parsed = await response.json();
         setReservations(parsed.reservations);
@@ -45,9 +45,9 @@ function DeleteReservation() {
       if (!response.ok) {
         setToast({
           msg: `Error ${response.status}: ${response.statusText}`,
-          color: "bg-red-600",
+          color: "bg-red-600 opacity-85",
         });
-        setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+        setTimeout(() => setToast({ msg: "", color: "" }), 3000);
       } else {
         // optional: remove deleted reservation from UI
         setReservations((prev) => prev.filter((r) => r._id !== id));

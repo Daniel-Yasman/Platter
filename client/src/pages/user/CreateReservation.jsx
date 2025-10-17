@@ -25,7 +25,7 @@ export default function CreateReservation() {
         if (!response.ok) {
           setToast({
             msg: `Error ${response.status}: ${response.statusText}`,
-            color: "bg-red-600",
+            color: "bg-red-600 opacity-85",
           });
           setTimeout(() => setToast({ msg: "", color: "" }), 3000);
           return;
@@ -51,7 +51,7 @@ export default function CreateReservation() {
       if (!response.ok) {
         setToast({
           msg: `Error ${response.status}: ${response.statusText}`,
-          color: "bg-red-600",
+          color: "bg-red-600 opacity-85",
         });
         setTimeout(() => setToast({ msg: "", color: "" }), 3000);
         return;
@@ -60,7 +60,10 @@ export default function CreateReservation() {
       setCart(result?.cart ?? []); // trust backend state
     } catch (error) {
       console.error(error);
-      setToast({ msg: String(error?.message || error), color: "bg-red-600" });
+      setToast({
+        msg: String(error?.message || error),
+        color: "bg-red-600 opacity-85",
+      });
       setTimeout(() => setToast({ msg: "", color: "" }), 3000);
     }
   }
@@ -70,7 +73,7 @@ export default function CreateReservation() {
     if (!date || !time) {
       setToast({
         msg: "Select date and time",
-        color: "bg-yellow-600",
+        color: "bg-yellow-600 opacity-85",
       });
       setTimeout(() => setToast({ msg: "", color: "" }), 3000);
       return;
@@ -78,7 +81,7 @@ export default function CreateReservation() {
     if (!cardName || !cardNumber || !month || !year || !cvv) {
       setToast({
         msg: "Fill payment fields (demo only)",
-        color: "bg-yellow-600",
+        color: "bg-yellow-600 opacity-85",
       });
       setTimeout(() => setToast({ msg: "", color: "" }), 3000);
       return;
@@ -103,14 +106,14 @@ export default function CreateReservation() {
         const parsed = await response.json().catch(() => null); // <-- await
         setToast({
           msg: parsed?.error || `Error ${response.status}`,
-          color: "bg-red-600",
+          color: "bg-red-600 opacity-85",
         });
-        setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+        setTimeout(() => setToast({ msg: "", color: "" }), 3000);
         return;
       }
       setToast({
         msg: "Reservation created",
-        color: "bg-green-600",
+        color: "bg-green-600 opacity-85",
       });
       setTimeout(() => setToast({ msg: "", color: "" }), 3000);
       await cartReset();
@@ -122,9 +125,9 @@ export default function CreateReservation() {
       console.error(e);
       setToast({
         msg: "Network error",
-        color: "bg-red-600",
+        color: "bg-red-600 opacity-85",
       });
-      setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+      setTimeout(() => setToast({ msg: "", color: "" }), 3000);
     }
   }
 

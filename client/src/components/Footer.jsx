@@ -14,7 +14,7 @@ function Footer() {
     setAgreed(false);
     setToast({
       msg: "Sent! (To no where, it's a demo)",
-      color: "bg-green-600",
+      color: "bg-green-600 opacity-85",
     });
     setTimeout(() => setToast({ msg: "", color: "" }), 3000);
   }

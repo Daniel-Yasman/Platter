@@ -20,9 +20,9 @@ function Menu() {
         if (!response.ok) {
           setToast({
             msg: `Error ${response.status}: ${response.statusText}`,
-            color: "bg-red-600",
+            color: "bg-red-600 opacity-85",
           });
-          setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+          setTimeout(() => setToast({ msg: "", color: "" }), 3000);
           return;
         }
         const data = await response.json();
@@ -41,9 +41,9 @@ function Menu() {
     if (!userId) {
       setToast({
         msg: "Please log in first",
-        color: "bg-yellow-600",
+        color: "bg-yellow-600 opacity-85",
       });
-      setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+      setTimeout(() => setToast({ msg: "", color: "" }), 3000);
       return;
     }
     try {
@@ -58,9 +58,9 @@ function Menu() {
       if (!response.ok) {
         setToast({
           msg: "Failed to add to cart",
-          color: "bg-red-600",
+          color: "bg-red-600 opacity-85",
         });
-        setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+        setTimeout(() => setToast({ msg: "", color: "" }), 3000);
         return;
       }
       await fetchCartCount();
@@ -68,9 +68,9 @@ function Menu() {
       console.error(err);
       setToast({
         msg: "Failed to add to cart",
-        color: "bg-red-600",
+        color: "bg-red-600 opacity-85",
       });
-      setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+      setTimeout(() => setToast({ msg: "", color: "" }), 3000);
     }
   }
 

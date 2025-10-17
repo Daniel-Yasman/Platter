@@ -17,8 +17,11 @@ export default function MealsList({ randomize = false, size }) {
           `${import.meta.env.VITE_API_URL}/api/food`
         );
         if (!response.ok) {
-          setToast({ msg: "Failed to load meals", color: "bg-red-600" });
-          setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+          setToast({
+            msg: "Failed to load meals",
+            color: "bg-red-600 opacity-85",
+          });
+          setTimeout(() => setToast({ msg: "", color: "" }), 3000);
           return;
         }
 
@@ -34,8 +37,11 @@ export default function MealsList({ randomize = false, size }) {
         setMeals(rows);
       } catch (e) {
         console.error(e);
-        setToast({ msg: "Failed to load meals", color: "bg-red-600" });
-        setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+        setToast({
+          msg: "Failed to load meals",
+          color: "bg-red-600 opacity-85",
+        });
+        setTimeout(() => setToast({ msg: "", color: "" }), 3000);
       }
     }
 
@@ -46,8 +52,8 @@ export default function MealsList({ randomize = false, size }) {
     try {
       const userId = localStorage.getItem("userId");
       if (!userId) {
-        setToast({ msg: "Log in first", color: "bg-yellow-500" });
-        setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+        setToast({ msg: "Log in first", color: "bg-yellow-500 opacity-85" });
+        setTimeout(() => setToast({ msg: "", color: "" }), 3000);
         return;
       }
       const res = await fetch(
@@ -60,13 +66,16 @@ export default function MealsList({ randomize = false, size }) {
       );
 
       if (!res.ok) throw new Error("Add to cart failed");
-      setToast({ msg: "Added to cart", color: "bg-green-600" });
-      setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+      setToast({ msg: "Added to cart", color: "bg-green-600 opacity-85" });
+      setTimeout(() => setToast({ msg: "", color: "" }), 3000);
       await fetchCartCount();
     } catch (e) {
       console.error(e);
-      setToast({ msg: "Failed to add to cart", color: "bg-red-600" });
-      setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+      setToast({
+        msg: "Failed to add to cart",
+        color: "bg-red-600 opacity-85",
+      });
+      setTimeout(() => setToast({ msg: "", color: "" }), 3000);
     }
   };
 
@@ -139,11 +148,11 @@ export default function MealsList({ randomize = false, size }) {
                       if (!userId) {
                         setToast({
                           msg: "Log in first",
-                          color: "bg-yellow-500",
+                          color: "bg-yellow-500 opacity-85",
                         });
                         setTimeout(
                           () => setToast({ msg: "", color: "" }),
-                          2800
+                          3000
                         );
                         return;
                       } else {

@@ -12,9 +12,9 @@ export default function Cart() {
     if (!userId) {
       setToast({
         msg: "Please log in first",
-        color: "bg-yellow-600",
+        color: "bg-yellow-600 opacity-85",
       });
-      setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+      setTimeout(() => setToast({ msg: "", color: "" }), 3000);
       return;
     }
     try {
@@ -24,9 +24,9 @@ export default function Cart() {
       if (!response.ok) {
         setToast({
           msg: `Error ${response.status}: ${response.statusText}`,
-          color: "bg-red-600",
+          color: "bg-red-600 opacity-85",
         });
-        setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+        setTimeout(() => setToast({ msg: "", color: "" }), 3000);
       }
       const data = await response.json();
       setItems(Array.isArray(data?.cart) ? data.cart : []);
@@ -58,9 +58,9 @@ export default function Cart() {
         const t = await response.text();
         setToast({
           msg: t || "Update failed",
-          color: "bg-red-600",
+          color: "bg-red-600 opacity-85",
         });
-        setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+        setTimeout(() => setToast({ msg: "", color: "" }), 3000);
         return;
       }
       await fetchUserCart();
@@ -69,9 +69,9 @@ export default function Cart() {
       console.error(e);
       setToast({
         msg: "Update failed",
-        color: "bg-red-600",
+        color: "bg-red-600 opacity-85",
       });
-      setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+      setTimeout(() => setToast({ msg: "", color: "" }), 3000);
     }
   }
 
@@ -87,9 +87,9 @@ export default function Cart() {
         const t = await res.text();
         setToast({
           msg: t || "Remove failed",
-          color: "bg-red-600",
+          color: "bg-red-600 opacity-85",
         });
-        setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+        setTimeout(() => setToast({ msg: "", color: "" }), 3000);
         return;
       }
       await fetchUserCart();
@@ -98,9 +98,9 @@ export default function Cart() {
       console.error(e);
       setToast({
         msg: "Remove failed",
-        color: "bg-red-600",
+        color: "bg-red-600 opacity-85",
       });
-      setTimeout(() => setToast({ msg: "", color: "" }), 2800);
+      setTimeout(() => setToast({ msg: "", color: "" }), 3000);
     }
   }
 
