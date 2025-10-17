@@ -66,8 +66,12 @@ export default function MyReservations() {
         const { error } = await response
           .json()
           .catch(() => ({ error: "Delete failed" }));
+        const readableError =
+          error === "time_passed"
+            ? "Cannot delete reservations set in less than 24 hours."
+            : error;
         setToast({
-          msg: error || "Delete failed",
+          msg: readableError || "Delete failed",
           color: "bg-red-600 opacity-85",
         });
         setTimeout(() => setToast({ msg: "", color: "" }), 3000);
