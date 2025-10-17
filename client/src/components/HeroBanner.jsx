@@ -13,6 +13,8 @@ const HeroBanner = () => {
           className="absolute top-0 left-0 w-full h-auto min-h-[120%]"
           src={`${import.meta.env.VITE_API_URL}/images/pages/home/Mainpage.png`}
           alt="Mainpage"
+          loading="lazy"
+          decoding="async"
         />
       </div>
     </div>

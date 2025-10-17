@@ -30,6 +30,8 @@ function Navbar({ cartCount = 0, userName = "" }) {
             import.meta.env.VITE_API_URL
           }/images/pages/home/Icon_transparent_2.png`}
           alt="Logo"
+          loading="lazy"
+          decoding="async"
         />
       </Link>
 

@@ -164,10 +164,6 @@ function Menu() {
                     }`}
                     loading="lazy"
                     decoding="async"
-                    onError={(e) => {
-                      e.currentTarget.src =
-                        "https://via.placeholder.com/250?text=No+Image";
-                    }}
                   />
                 </div>
                 <div className="max-w-xs">

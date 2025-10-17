@@ -47,6 +47,8 @@ function AboutUs() {
               import.meta.env.VITE_API_URL
             }/images/pages/about/Hostess.png`}
             alt="Hostess"
+            loading="lazy"
+            decoding="async"
           />
           <img
             className="absolute -top-20 -right-24 w-[180px] h-[280px]"
@@ -54,6 +56,8 @@ function AboutUs() {
               import.meta.env.VITE_API_URL
             }/images/pages/about/Shawarma with hand.png`}
             alt="Shawarma with hand"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </main>

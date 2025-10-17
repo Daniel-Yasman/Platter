@@ -123,10 +123,6 @@ export default function MealsList({ randomize = false, size }) {
                   className="h-[250px] w-[250px] rounded-xl object-cover"
                   loading="lazy"
                   decoding="async"
-                  onError={(e) => {
-                    e.currentTarget.src =
-                      "https://via.placeholder.com/250?text=No+Image";
-                  }}
                 />
               </div>
               <div className="max-w-xs">
