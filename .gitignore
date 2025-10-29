@@ -1,0 +1,35 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# macOS
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+# Build outputs
+dist/
+build/
+coverage/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# System or personal files
+.DS_Store
+automation/Chrome Profile
+.Documentations and Diagrams/
+
+# OS generated files
+Thumbs.db

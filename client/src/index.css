@@ -1,0 +1,9 @@
+@import "tailwindcss";
+body {
+  height: 100%;
+  font-family: "Atkinson Hyperlegible", sans-serif;
+  box-sizing: border-box;
+  background: linear-gradient(to bottom, #faf5f0 0%, #faf5f0 25%, #ffd09a 100%);
+  margin: 0;
+  color: #504a96;
+}
