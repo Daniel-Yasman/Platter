@@ -26,17 +26,21 @@ function SubscriberList() {
   return (
     <div>
       <div className="flex flex-wrap gap-4 p-4 border bg-gray-50 rounded-lg items-center justify-center">
-        {subs.map((sub) => (
-          <div
-            key={sub._id}
-            className="w-64 border bg-white rounded-lg shadow-sm p-4 flex flex-col gap-2"
-          >
-            <div className="font-semibold text-gray-800">
-              Email:{" "}
-              <span className="font-normal text-gray-700">{sub.email}</span>
+        {subs.length > 0 ? (
+          subs.map((sub) => (
+            <div
+              key={sub._id}
+              className="w-64 border bg-white rounded-lg shadow-sm p-4 flex flex-col gap-2"
+            >
+              <div className="font-semibold text-gray-800">
+                Email:{" "}
+                <span className="font-normal text-gray-700">{sub.email}</span>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p>No subscribers yet.</p>
+        )}
       </div>
 
       {/* Toast */}
