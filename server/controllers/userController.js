@@ -1,4 +1,6 @@
 const User = require("../models/User");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 const MAX_QTY = 10;
 const MIN_QTY = 1;
@@ -45,10 +47,14 @@ async function register(req, res) {
       !isValidIsraeliPhone(phone)
     )
       return res.status(400).json({ error: "invalid_input" });
+
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hash = await bcrypt.hash(password, salt);
+
     const newUser = new User({
       name: name,
       email: email,
-      password: password,
+      password: hash,
       phone: phone,
     });
     await newUser.save();
@@ -63,7 +69,10 @@ async function login(req, res) {
     const { email, password } = req.body;
     if (!email || !password)
       return res.status(400).json({ error: "missing_fields" });
-    const user = await User.findOne({ email }).select("_id role");
+
+    const user = await User.findOne({ email }).select("_id role password");
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) return res.status(409).json({ error: "invalid_password" });
     if (!user) return res.status(404).json({ error: "not_found" });
     return res.status(200).json({
       message: "login_successfull",
