@@ -28,21 +28,27 @@ function InquiryList() {
   return (
     <div>
       <div className="flex flex-wrap gap-4 p-4 border bg-gray-50 rounded-lg items-center justify-center">
-        {inquiries.map((inquiry) => (
-          <div
-            key={inquiry._id}
-            className="w-64 border bg-white rounded-lg shadow-sm p-4 flex flex-col gap-2"
-          >
-            <div className="font-semibold text-gray-800 break-words">
-              Email:{" "}
-              <span className="font-normal text-gray-700">{inquiry.email}</span>
+        {inquiries.length > 0 ? (
+          inquiries.map((inquiry) => (
+            <div
+              key={inquiry._id}
+              className="w-64 border bg-white rounded-lg shadow-sm p-4 flex flex-col gap-2"
+            >
+              <div className="font-semibold text-gray-800 break-words">
+                Email:{" "}
+                <span className="font-normal text-gray-700">
+                  {inquiry.email}
+                </span>
+              </div>
+              <div className="text-gray-700 text-sm break-words">
+                Message:
+                <div className="text-gray-900 font-medium">{inquiry.body}</div>
+              </div>
             </div>
-            <div className="text-gray-700 text-sm break-words">
-              Message:
-              <div className="text-gray-900 font-medium">{inquiry.body}</div>
-            </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p>No inquiries yet.</p>
+        )}
       </div>
 
       {/* Toast */}
