@@ -2,9 +2,7 @@ import { useState, useEffect } from "react";
 
 function DeleteReservation() {
   const adminId = localStorage.getItem("userId");
-  const [userId, setUserId] = useState("");
   const [reservations, setReservations] = useState([]);
-  const [message, setMessage] = useState("");
   const [toast, setToast] = useState({ msg: "", color: "" });
 
   useEffect(() => {
@@ -29,31 +27,6 @@ function DeleteReservation() {
       console.error(err);
     }
   }, []);
-
-  async function handleClick() {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/reservation/${userId}`
-      );
-      if (!response.ok) {
-        setToast({
-          msg: `Error ${response.status}: ${response.statusText}`,
-          color: "bg-red-600 opacity-85",
-        });
-        setTimeout(() => setToast({ msg: "", color: "" }), 3000);
-      } else {
-        const parsed = await response.json();
-        setReservations(parsed.reservations);
-        if (parsed.reservations.length === 0) {
-          setMessage("No reservations found");
-        } else {
-          setMessage("");
-        }
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }
 
   async function handleDelete(id) {
     try {
@@ -86,7 +59,9 @@ function DeleteReservation() {
         <h2 className="text-2xl font-bold text-center">Delete Reservation</h2>
 
         {reservations.length === 0 ? (
-          <div className="text-center text-gray-600">{message}</div>
+          <div className="text-center text-gray-600">
+            No reservations to delete.
+          </div>
         ) : (
           <div className="space-y-6">
             {reservations.map((reservation) => (
