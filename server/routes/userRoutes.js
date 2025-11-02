@@ -8,6 +8,7 @@ const {
   updateCartItem,
   removeCartItem,
   resetCart,
+  getUsers,
 } = require("../controllers/userController");
 
 router.post("/register", register);
@@ -17,4 +18,5 @@ router.get("/:userId", getUser);
 router.patch("/:userId", updateCartItem);
 router.delete("/:userId/:foodId", removeCartItem);
 router.patch("/:userId/cartReset", resetCart);
+router.get("/", getUsers);
 module.exports = router;
