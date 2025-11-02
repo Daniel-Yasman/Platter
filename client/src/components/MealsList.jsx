@@ -89,7 +89,7 @@ export default function MealsList({ randomize = false, size }) {
               setSelected(m);
               setModalOpen(true);
             }}
-            className="w-64 cursor-pointer rounded-2xl bg-white p-5 text-center shadow-md"
+            className="w-64 cursor-pointer rounded-2xl bg-white p-5 text-center shadow-md transition-transform duration-200 hover:scale-[1.1]"
           >
             <p className="mb-2 line-clamp-1 text-lg font-semibold">{m.name}</p>
             <div className="relative">
@@ -105,7 +105,7 @@ export default function MealsList({ randomize = false, size }) {
               {Number(m.price || 0).toFixed(2)}₪
             </div>
             <button
-              className="cursor-pointer rounded-full bg-gradient-to-r from-indigo-900 to-orange-500 px-5 py-2.5 font-semibold text-white shadow-md"
+              className="cursor-pointer bg-gradient-to-r from-indigo-900 to-orange-500 text-white font-semibold rounded-full shadow-md hover:from-orange-500 hover:to-indigo-800 transition transform duration-500 px-5 py-2.5"
               onClick={(e) => {
                 e.stopPropagation();
                 handleAddToCart(m._id);
@@ -116,7 +116,6 @@ export default function MealsList({ randomize = false, size }) {
           </div>
         ))}
       </div>
-
       {/* Modal */}
       <div onClick={() => setModalOpen(false)}>
         {modalOpen && selected && (
@@ -159,7 +158,7 @@ export default function MealsList({ randomize = false, size }) {
                         handleAddToCart(selected._id);
                       }
                     }}
-                    className="cursor-pointer rounded-full bg-gradient-to-r from-indigo-900 to-orange-500 px-5 py-2.5 font-semibold text-white shadow-md"
+                    className="px-5 py-2.5 cursor-pointer bg-gradient-to-r from-indigo-900 to-orange-500 text-white font-semibold rounded-full shadow-md hover:from-orange-500 hover:to-indigo-800 transition transform duration-500"
                   >
                     Add to cart
                   </button>
