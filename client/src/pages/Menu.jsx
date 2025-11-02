@@ -63,6 +63,11 @@ function Menu() {
         setTimeout(() => setToast({ msg: "", color: "" }), 3000);
         return;
       }
+      setToast({
+        msg: "Added to cart",
+        color: "bg-green-600 opacity-85",
+      });
+      setTimeout(() => setToast({ msg: "", color: "" }), 3000);
       await fetchCartCount();
     } catch (err) {
       console.error(err);
@@ -103,7 +108,7 @@ function Menu() {
                     setSelected(food);
                     setModalOpen(true);
                   }}
-                  className={`cursor-pointer rounded-2xl p-5 text-center shadow-md ${
+                  className={`cursor-pointer rounded-2xl p-5 text-center shadow-md transition-transform duration-200 hover:scale-[1.1] ${
                     outOfStock ? "bg-white/60" : "bg-white"
                   }`}
                 >
@@ -131,8 +136,8 @@ function Menu() {
                     }}
                     className={`rounded-full px-5 py-2.5 font-semibold text-white shadow-md ${
                       outOfStock
-                        ? "cursor-not-allowed bg-gray-600"
-                        : "cursor-pointer bg-gradient-to-r from-indigo-900 to-orange-500"
+                        ? "cursor-not-allowed bg-gradient-to-r from-gray-600 to-gray-400"
+                        : "cursor-pointer bg-gradient-to-r from-indigo-900 to-orange-500 text-white font-semibold rounded-full shadow-md hover:from-orange-500 hover:to-indigo-800 transition transform duration-500"
                     }`}
                   >
                     {outOfStock ? "Out of stock" : "Add to Cart"}
@@ -181,7 +186,7 @@ function Menu() {
                       className={`rounded-full px-5 py-2.5 font-semibold text-white shadow-md ${
                         selectedOutOfStock
                           ? "cursor-not-allowed bg-gray-600"
-                          : "cursor-pointer bg-gradient-to-r from-indigo-900 to-orange-500"
+                          : "cursor-pointer bg-gradient-to-r from-indigo-900 to-orange-500 text-white font-semibold rounded-full shadow-md hover:from-orange-500 hover:to-indigo-800 transition transform duration-500"
                       }`}
                     >
                       {selectedOutOfStock ? "Out of stock" : "Add to Cart"}
