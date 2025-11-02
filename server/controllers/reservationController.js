@@ -121,7 +121,9 @@ async function userDeleteReservation(req, res) {
     const { userId, reservationId } = req.params;
     if (!userId) return res.status(400).json({ error: "missing_fields" });
 
-    const doc = await Reservation.findById(reservationId);
+    const doc = await Reservation.findById(reservationId)
+      .populate("cart.foodId")
+      .populate("time");
     if (!doc) return res.status(404).json({ error: "not_found" });
 
     const now = Date.now();
@@ -134,6 +136,21 @@ async function userDeleteReservation(req, res) {
     */
     if (when - now < H24 && when - now > 0)
       return res.status(409).json({ error: "time_passed" });
+
+    // add stock back in
+    const slotKey = doc.time;
+
+    await Slot.findOneAndUpdate({ slotKey }, { $inc: { used: -1 } });
+
+    for (const item of doc.cart) {
+      const foodId = new mongoose.Types.ObjectId(item.foodId._id);
+
+      const updated = await Food.updateOne(
+        { _id: foodId, stock: { $gte: item.quantity } },
+        { $inc: { stock: +item.quantity } }
+      );
+      if (updated.modifiedCount === 0) throw new Error("stock_error");
+    }
 
     await Reservation.findOneAndDelete({ _id: reservationId });
     return res.status(200).json({ message: "success" });
@@ -154,8 +171,23 @@ async function listAllReservations(req, res) {
     return res.status(500).json({ error: "server_error" });
   }
 }
+
+async function listUserReservations(req, res) {
+  try {
+    const { userId } = req.params;
+    const reservations = await Reservation.find({ userId }).populate(
+      "cart.foodId",
+      "name price image"
+    );
+    return res.status(200).json({ reservations });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "server_error" });
+  }
+}
 module.exports = {
   createReservation,
   userDeleteReservation,
   listAllReservations,
+  listUserReservations,
 };
