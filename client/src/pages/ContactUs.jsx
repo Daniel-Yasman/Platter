@@ -1,5 +1,31 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import * as motion from "motion/react-client";
+
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function WavyText({ text, delay = 0 }) {
+  return (
+    <span className="inline-block">
+      {text.split("").map((char, i) => (
+        <motion.span
+          key={i}
+          className="inline-block"
+          initial={{ y: 0 }}
+          animate={{ y: [-2, -6, 0] }}
+          transition={{
+            duration: 1.2,
+            repeat: Infinity,
+            repeatType: "loop",
+            ease: "easeInOut",
+            delay: delay + i * 0.04,
+          }}
+        >
+          {char === " " ? "\u00A0" : char}
+        </motion.span>
+      ))}
+    </span>
+  );
+}
 
 export default function ContactUs() {
   const [email, setEmail] = useState("");
@@ -117,17 +143,21 @@ export default function ContactUs() {
         </div>
       ) : null}
 
-      <section className="pt-18 flex flex-col gap-10">
-        <header className="text-4xl sm:text-6xl font-semibold">
-          Location & Hours
+      <section className="pt-18 flex flex-col gap-10 items-center">
+        <header className="text-4xl sm:text-6xl font-semibold text-center">
+          <WavyText text="Location & Hours" />
         </header>
         <ul className="flex flex-col items-center justify-center gap-6 text-center">
           <li className="w-4/5 sm:w-1/2">
-            <p>500 Rainbow Blvd, Somewhere City, CA 94123</p>
+            <WavyText
+              text="500 Rainbow Blvd, Somewhere City, CA 94123"
+              delay={0.2}
+            />
           </li>
           <li className="w-4/5 sm:w-1/2">
-            <p>Sun - Thu: 9am - 7pm</p>
-            <p>Fri: 9am - 12pm</p>
+            <WavyText text="Sun - Thu: 9am - 7pm" delay={0.35} />
+            <br />
+            <WavyText text="Fri: 9am - 12pm" delay={0.5} />
           </li>
         </ul>
       </section>
