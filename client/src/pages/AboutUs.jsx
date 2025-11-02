@@ -1,3 +1,5 @@
+import * as motion from "motion/react-client";
+
 function AboutUs() {
   return (
     <div className="flex justify-center items-center">
@@ -41,7 +43,7 @@ function AboutUs() {
         </section>
 
         <div className="mt-20 relative w-[400px] h-fit">
-          <img
+          <motion.img
             className="w-fit"
             src={`${
               import.meta.env.VITE_API_URL
@@ -49,8 +51,15 @@ function AboutUs() {
             alt="Hostess"
             loading="lazy"
             decoding="async"
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.2,
+              ease: [0, 0.71, 0.2, 1.01],
+            }}
           />
-          <img
+          <motion.img
             className="absolute -top-20 -right-24 w-[180px] h-[280px]"
             src={`${
               import.meta.env.VITE_API_URL
@@ -58,6 +67,13 @@ function AboutUs() {
             alt="Shawarma with hand"
             loading="lazy"
             decoding="async"
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.5,
+              ease: [0, 0.71, 0.2, 1.01],
+            }}
           />
         </div>
       </main>
