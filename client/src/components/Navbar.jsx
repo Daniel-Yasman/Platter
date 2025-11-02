@@ -11,19 +11,22 @@ function Navbar({ cartCount = 0, userName = "" }) {
     <div className="pt-4 grid grid-cols-3 items-center w-full px-10 pb-10 text-indigo-900 border-b-2">
       {/* Left */}
       <ul className="flex items-center gap-8 justify-start">
-        <li>
+        <li className="transition-transform duration-200 hover:scale-[1.15]">
           <Link to="/aboutUs">About</Link>
         </li>
-        <li>
+        <li className="transition-transform duration-200 hover:scale-[1.15]">
           <Link to="/menu">Menu</Link>
         </li>
-        <li>
+        <li className="transition-transform duration-200 hover:scale-[1.15]">
           <Link to="/contactUs">Contact Us</Link>
         </li>
       </ul>
 
       {/* Center */}
-      <Link to="/" className="justify-self-center">
+      <Link
+        to="/"
+        className="justify-self-center transition-transform duration-200 hover:scale-[1.15]"
+      >
         <img
           className="w-32 h-auto"
           src={`${
@@ -38,11 +41,11 @@ function Navbar({ cartCount = 0, userName = "" }) {
       {/* Right */}
       <ul className="flex items-center gap-4 justify-end">
         {!isLoggedIn ? (
-          <li>
+          <li className="transition-transform duration-200 hover:scale-[1.15]">
             <Link to="/login">Sign in</Link>
           </li>
         ) : (
-          <li>
+          <li className="transition-transform duration-200 hover:scale-[1.15]">
             <Link to="/my-reservations">
               <div className="flex items-center gap-1">
                 <FaCircleUser className="w-7 h-7" />
@@ -51,7 +54,7 @@ function Navbar({ cartCount = 0, userName = "" }) {
             </Link>
           </li>
         )}
-        <li>
+        <li className="transition-transform duration-200 hover:scale-[1.15]">
           {isLoggedIn ? (
             <Link to="/cart" className="cursor-pointer inline-block">
               <div className="flex justify-center relative w-14 h-14">
@@ -85,7 +88,7 @@ function Navbar({ cartCount = 0, userName = "" }) {
           {" "}
           {isLoggedIn ? (
             <Link
-              className="cursor-pointer p-3 bg-gradient-to-r from-indigo-900 to-orange-500 text-white font-semibold rounded-full shadow-md hover:from-orange-500 hover:to-indigo-800 transition transform duration-200"
+              className="cursor-pointer p-3 bg-gradient-to-r from-indigo-900 to-orange-500 text-white font-semibold rounded-full shadow-md hover:from-orange-500 hover:to-indigo-800 transition transform duration-500"
               to="/reserve"
             >
               Make a reservation
