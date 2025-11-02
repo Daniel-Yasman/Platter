@@ -34,44 +34,38 @@ function UpcomingOrders() {
         </span>
       </p>
       <div className="flex flex-wrap gap-4 p-4 border bg-gray-50 rounded-lg items-center justify-center">
-        {reservations.length > 0 ? (
-          reservationsreservations.map(
-            (r) =>
-              new Date(r.time) > new Date() && (
-                <div
-                  key={r.id}
-                  className="w-64 border bg-white rounded-lg shadow-sm p-4 flex flex-col gap-1"
-                >
-                  <div className="font-semibold text-gray-800">
-                    Name: {r.user}
-                  </div>
-                  <div className="text-gray-700 text-sm">Email: {r.email}</div>
-                  <div className="text-gray-700 text-sm">
-                    Order Date: {r.time}
-                  </div>
-                  <div className="font-medium text-gray-900">
-                    Total:{" "}
-                    <span className="text-green-700">
-                      ₪{r.total.toFixed(2)}
-                    </span>
-                  </div>
-                  <div className="border-t-3 border-b-3 text-center">
-                    {r.cart.map((item) => (
-                      <div className="">
-                        <div key={item._id}>
-                          {item.foodId?.name} × {item.quantity}
-                        </div>
-                        <div className="text-green-700">
-                          ₪{item.foodId?.price}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+        {reservations.map(
+          (r) =>
+            new Date(r.time) > new Date() && (
+              <div
+                key={r.id}
+                className="w-64 border bg-white rounded-lg shadow-sm p-4 flex flex-col gap-1"
+              >
+                <div className="font-semibold text-gray-800">
+                  Name: {r.user}
                 </div>
-              )
-          )
-        ) : (
-          <p>No reservations yet.</p>
+                <div className="text-gray-700 text-sm">Email: {r.email}</div>
+                <div className="text-gray-700 text-sm">
+                  Order Date: {r.time}
+                </div>
+                <div className="font-medium text-gray-900">
+                  Total:{" "}
+                  <span className="text-green-700">₪{r.total.toFixed(2)}</span>
+                </div>
+                <div className="border-t-3 border-b-3 text-center">
+                  {r.cart.map((item) => (
+                    <div className="">
+                      <div key={item._id}>
+                        {item.foodId?.name} × {item.quantity}
+                      </div>
+                      <div className="text-green-700">
+                        ₪{item.foodId?.price}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )
         )}
       </div>
       {/* Toast */}
