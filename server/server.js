@@ -7,10 +7,12 @@ const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT ?? 3000;
-
 app.use(
   cors({
-    origin: ["http://localhost:8080", "https://platter-mu.vercel.app"],
+    origin: [
+      "http://localhost:8080",
+      "https://platter-chi.vercel.app", // YOUR real domain
+    ],
     credentials: true,
   })
 );
