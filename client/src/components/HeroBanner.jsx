@@ -21,12 +21,12 @@ export default function HeroBanner() {
 
   return (
     <div className="flex flex-col justify-center items-center py-14">
-      <header className="text-3xl md:text-5xl mb-6 text-center leading-none">
+      <header className="hidden md:block text-3xl md:text-5xl mb-6 text-center leading-none">
         Order once. Obsess forever.
       </header>
       <div
         ref={containerRef}
-        className="relative w-[38%] h-[820px] overflow-hidden rounded-2xl bg-slate-900"
+        className="hidden md:block relative w-[38%] h-[820px] overflow-hidden rounded-2xl bg-slate-900"
       >
         <AnimatePresence initial={false} custom={direction} mode="popLayout">
           <HeroSlide key={index} src={IMAGES[index]} />

@@ -76,7 +76,7 @@ export default function ContactUs() {
 
   return (
     <main className="flex flex-col items-center justify-center gap-6 py-20">
-      <section className="flex flex-col items-center justify-center gap-4 text-center">
+      <section className="flex md:w-full w-xs flex-col items-center justify-center gap-4 text-center">
         <header className="w-4/5 text-4xl sm:text-6xl font-semibold">
           Ask about our secret recipe!
         </header>
@@ -99,7 +99,7 @@ export default function ContactUs() {
 
       <form
         onSubmit={handleSubmit}
-        className="flex w-full max-w-xl flex-col gap-4"
+        className="flex w-xs md:w-full max-w-xl flex-col gap-4"
       >
         <label className="flex flex-col gap-1">
           <span>Email *</span>

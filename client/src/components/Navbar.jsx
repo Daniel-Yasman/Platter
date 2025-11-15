@@ -8,9 +8,12 @@ function Navbar({ cartCount = 0, userName = "" }) {
   const isLoggedIn = Boolean(userId);
   const [toast, setToast] = useState({ msg: "", color: "" });
   return (
-    <div className="pt-4 grid grid-cols-3 items-center w-full px-10 pb-10 text-indigo-900 border-b-2">
+    <div className="pt-4 flex flex-col md:grid grid-cols-3 items-center md:w-full px-10 pb-10 text-indigo-900 border-b-2">
       {/* Left */}
-      <ul className="flex items-center gap-8 justify-start">
+      <ul className="flex md:flex-row flex-col items-center md:gap-8 gap-4 md:justify-start text-5xl md:text-base">
+        <li className="md:hidden">
+          <Link to="/">Home</Link>
+        </li>
         <li className="transition-transform duration-200 hover:scale-[1.15]">
           <Link to="/aboutUs">About</Link>
         </li>
@@ -28,7 +31,7 @@ function Navbar({ cartCount = 0, userName = "" }) {
         className="justify-self-center transition-transform duration-200 hover:scale-[1.15]"
       >
         <img
-          className="w-32 h-auto"
+          className="hidden md:block w-32 h-auto"
           src={`${
             import.meta.env.VITE_API_URL
           }/images/pages/home/Icon_transparent_2.png`}
@@ -39,7 +42,7 @@ function Navbar({ cartCount = 0, userName = "" }) {
       </Link>
 
       {/* Right */}
-      <ul className="flex items-center gap-4 justify-end">
+      <ul className="flex flex-wrap justify-center items-center gap-4 md:justify-end">
         {!isLoggedIn ? (
           <li className="transition-transform duration-200 hover:scale-[1.15]">
             <Link to="/login">Sign in</Link>
@@ -48,8 +51,8 @@ function Navbar({ cartCount = 0, userName = "" }) {
           <li className="transition-transform duration-200 hover:scale-[1.15]">
             <Link to="/my-reservations">
               <div className="flex items-center gap-1">
-                <FaCircleUser className="w-7 h-7" />
-                <div>{userName || "Guest"}</div>
+                <FaCircleUser className="w-10 h-10 md:w-7 md:h-7" />
+                <div className="text-2xl">{userName || "Guest"}</div>
               </div>
             </Link>
           </li>
@@ -88,7 +91,7 @@ function Navbar({ cartCount = 0, userName = "" }) {
           {" "}
           {isLoggedIn ? (
             <Link
-              className="cursor-pointer p-3 bg-gradient-to-r from-indigo-900 to-orange-500 text-white font-semibold rounded-full shadow-md hover:from-orange-500 hover:to-indigo-800 transition transform duration-500"
+              className="text-xl cursor-pointer p-3 bg-gradient-to-r from-indigo-900 to-orange-500 text-white font-semibold rounded-full shadow-md hover:from-orange-500 hover:to-indigo-800 transition transform duration-500"
               to="/reserve"
             >
               Make a reservation

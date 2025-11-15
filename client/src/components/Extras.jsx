@@ -110,7 +110,7 @@ function Extras() {
           Indulge. Regret nothing.
         </header>
       </section>
-      <div className="flex justify-evenly">
+      <div className="flex md:flex-row flex-col gap-4 md:gap-0 justify-evenly">
         <motion.div
           initial={{ opacity: 0, scale: 0 }}
           whileInView={{ opacity: 1, scale: 1 }}

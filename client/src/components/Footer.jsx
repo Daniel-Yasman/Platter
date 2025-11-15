@@ -39,7 +39,7 @@ function Footer() {
   }
 
   return (
-    <footer className="relative flex justify-between bg-orange-200 p-10 py-20 opacity-90 border-t-2">
+    <footer className="relative flex md:flex-row flex-col justify-between bg-orange-200 p-10 py-20 opacity-90 border-t-2">
       <section className="flex flex-col gap-6">
         <span className="w-[200px]">
           <label className="font-semibold">Address</label>

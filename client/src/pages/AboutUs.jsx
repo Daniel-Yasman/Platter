@@ -3,10 +3,10 @@ import * as motion from "motion/react-client";
 function AboutUs() {
   return (
     <div className="flex justify-center items-center">
-      <main className="p-18 flex gap-12">
-        <section className="flex flex-col">
+      <main className="p-18 flex md:flex-row flex-col gap-12">
+        <section className="flex items-center md:items-start flex-col">
           <header className="pb-8 text-6xl font-semibold">Our Story</header>
-          <div className="w-[500px] tracking-wider flex flex-col gap-6">
+          <div className="md:w-md w-xs tracking-wider flex flex-col gap-6">
             <p>
               <span className="font-semibold">Platter</span> was born from one
               obvious, painful truth: waiting at restaurants is the worst.
@@ -25,10 +25,10 @@ function AboutUs() {
             </p>
             <p>
               Under the hood, Platter runs on sleek tech that works smoothly
-              across any device no app install, no fuss (as long as you're at
-              1080p that is). Menus stay up to date in real time, inventory is
-              accurate (because we don’t do “sorry, we’re out”), and restaurants
-              get tools that make their lives easier, not harder.
+              across any device no app install, no fuss. Menus stay up to date
+              in real time, inventory is accurate (because we don’t do “sorry,
+              we’re out”), and restaurants get tools that make their lives
+              easier, not harder.
             </p>
             <p>
               We're here for busy people who want to eat well without playing
@@ -42,9 +42,9 @@ function AboutUs() {
           </div>
         </section>
 
-        <div className="mt-20 relative w-[400px] h-fit">
+        <div className="flex justify-center mt-20 relative w-[400px] h-fit">
           <motion.img
-            className="w-fit"
+            className="md:w-fit w-[250px]"
             src={`${
               import.meta.env.VITE_API_URL
             }/images/pages/about/Hostess.png`}
@@ -60,7 +60,7 @@ function AboutUs() {
             }}
           />
           <motion.img
-            className="absolute -top-20 -right-24 w-[180px] h-[280px]"
+            className="absolute w-[100px] -top-20 right-8 md:-right-24 md:w-[180px] md:h-[280px]"
             src={`${
               import.meta.env.VITE_API_URL
             }/images/pages/about/Shawarma with hand.png`}
