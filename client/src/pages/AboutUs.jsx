@@ -2,7 +2,7 @@ import * as motion from "motion/react-client";
 
 function AboutUs() {
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center overflow-x-hidden">
       <main className="p-18 flex md:flex-row flex-col gap-12">
         <section className="flex items-center md:items-start flex-col">
           <header className="pb-8 text-6xl font-semibold">Our Story</header>
